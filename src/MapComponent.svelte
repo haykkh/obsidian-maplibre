@@ -1,24 +1,21 @@
 <script lang="ts">
     import { MapLibre, DefaultMarker, Popup } from "svelte-maplibre"
-    import { lngLat, name } from "./location-store"
+    import { lngLat, locations, type ILocationFile } from "./location-store"
 
 	import "maplibre-gl/dist/maplibre-gl.css";
 
-	let nameLocal = "";
-	let lngLatLocal = { lng: 0, lat: 0 };
+	let lngLatLocal = { lng: 0, lat: 0 }
+	let locationsLocal = new Map<string, ILocationFile>()
+
+	locations.subscribe((newLocations) => {
+		locationsLocal = newLocations
+	})
 
     lngLat.subscribe((newLngLat) => {
 		if (newLngLat.lng && newLngLat.lat) {
 			lngLatLocal = newLngLat;
 		}
-	});
-
-	name.subscribe((newName) => {
-		nameLocal ??= newName;
-		if (newName) {
-			nameLocal = newName;
-		}
-	});
+	})
 </script>
 
 <MapLibre
@@ -28,11 +25,14 @@
 	standardControls
 	style="https://basemaps.cartocdn.com/gl/positron-gl-style/style.json"
 >
-    <DefaultMarker lngLat={lngLatLocal} draggable>
-        <Popup offset={[0, -10]}>
-            <div>Hello</div>
-        </Popup>
-    </DefaultMarker>
+{#each locationsLocal as [_path, { lng, lat, name }]}
+	
+<DefaultMarker lngLat={[lng,lat]} draggable>
+	<Popup offset={[0, -10]}>
+		<div>{name}</div>
+	</Popup>
+</DefaultMarker>
+{/each}
 </MapLibre>
 
 <style>
