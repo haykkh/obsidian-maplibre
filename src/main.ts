@@ -17,12 +17,9 @@ export default class MapPlugin extends Plugin {
 	async onunload() {}
 
 	syncLocationStore() {
-		console.error("synchLocationStore")
 		this.app.workspace.on('active-leaf-change', async () => {
-			console.error("synchLocationStore", "active-leaf-change")
 			const { lng, lat } = await this.getCoordinates()
 			
-			console.error("synchLocationStore", "getCoordinates", lng, lat)
 			if (lng && lat) {
 				locationStore.lng.set(lng)
 				locationStore.lat.set(lat)
