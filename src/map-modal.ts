@@ -1,18 +1,18 @@
-import { App, Modal } from "obsidian";
+import { App, Modal } from "obsidian"
 
-export const VIEW_TYPE_MAP_MODAL = "map-modal";
+export const VIEW_TYPE_MAP_MODAL = "map-modal"
 
 export class MapModal extends Modal {
   constructor(app: App) {
-    super(app);
+    super(app)
   }
 
   getViewType() {
-    return VIEW_TYPE_MAP_MODAL;
+    return VIEW_TYPE_MAP_MODAL
   }
 
   getDisplayText() {
-    return "Map view";
+    return "Map view"
   }
 
   async onOpen() {
