@@ -17,8 +17,8 @@ export default class MapPlugin extends Plugin {
 	async onunload() {}
 
 	syncLocationStore() {
-		this.app.workspace.on('active-leaf-change', async () => {
-			const { lng, lat } = await this.getCoordinates()
+		this.app.workspace.on('file-open', async () => {
+			const { lng, lat } = await this.getCoordinatesFromActiveFile()
 			
 			if (lng && lat) {
 				locationStore.lng.set(lng)
