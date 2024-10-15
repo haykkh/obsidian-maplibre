@@ -1,0 +1,10 @@
+{
+	"id": "obsidian-maplibre",
+	"name": "Obsidian maplibre",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "This plugin adds support for MapLibre maps in Obsidian.",
+	"author": "hayk",
+	"authorUrl": "https://hayk.earth",
+	"isDesktopOnly": false
+}
