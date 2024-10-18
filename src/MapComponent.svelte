@@ -3,6 +3,7 @@
     import { activeLocation, locations, type ILocationFile } from "./location-store"
 	import MyMarker from "./MyMarker.svelte"
 	import "maplibre-gl/dist/maplibre-gl.css";
+	import { createEventDispatcher } from "svelte";
 
 	let locationsLocal = new Map<string, ILocationFile>()
 	let activeLocationLocal: ILocationFile | null = null
@@ -15,6 +16,9 @@
         activeLocationLocal = newActiveLocation ?? null
     })
 
+	const dispatch = createEventDispatcher()
+    const handleMarkerClick = (event: CustomEvent) => dispatch("marker-click", { ...event.detail })
+
 	$: activeLngLat = activeLocationLocal ? { lng: activeLocationLocal.lng, lat: activeLocationLocal.lat } : {lng: 0, lat: 0}
 </script>
 
@@ -26,7 +30,7 @@
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 >
 {#each locationsLocal as [_path, location]}
-	<MyMarker {location} />
+	<MyMarker {location} on:click={handleMarkerClick} />
 {/each}
 </MapLibre>
 

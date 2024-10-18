@@ -20,6 +20,17 @@ export class MapView extends ItemView {
 
   async onOpen() {
     this.component = new MapComponent({ target: this.contentEl })
+
+    this.component.$on("marker-click", (event) => {
+      const file = this.app.vault.getFileByPath(event.detail.location.path)
+
+      if (file) {
+        const leaf = this.app.workspace.getMostRecentLeaf()
+      
+        if (leaf) leaf.openFile(file)
+        else this.app.workspace.getLeaf(true).openFile(file)
+      }
+    })
   }
 
   async onClose() {

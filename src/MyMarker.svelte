@@ -1,16 +1,24 @@
 <script lang="ts">
     import { Marker } from "svelte-maplibre"
 	import MarkerSvg from "./MarkerSvg.svelte"
-	import { onMount } from "svelte";
+	import { createEventDispatcher, onMount } from "svelte";
 	import type { ILocationFile } from "./location-store";
-	
+
     export let location: ILocationFile
 
     let marker: maplibregl.Marker | undefined
+    let markerElement: HTMLElement | undefined
 
     onMount(() => {
-        marker?.getElement().setAttribute("aria-label", location.name)
+        markerElement = marker?.getElement()
+        markerElement?.setAttribute("aria-label", location.name)
+
+        markerElement?.addEventListener("pointerdown", handleClick, { capture: true })
     })
+
+    const dispatch = createEventDispatcher()
+
+    const handleClick = (_event: PointerEvent) => dispatch("click", { location })
 
 </script>
 
