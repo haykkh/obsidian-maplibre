@@ -5,6 +5,7 @@
 	
     export let lngLat: { lng: number, lat: number }
     export let name: string
+    export let isActive: boolean
 
     let marker: maplibregl.Marker | undefined
 
@@ -16,5 +17,5 @@
 
 
 <Marker lngLat={lngLat} draggable bind:marker={marker} >
-     <MarkerSvg />
+     <MarkerSvg color={isActive ? "red" : ""} />
 </Marker>
