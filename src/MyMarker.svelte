@@ -1,28 +1,29 @@
 <script lang="ts">
-    import { Marker } from "svelte-maplibre"
-	import MarkerSvg from "./MarkerSvg.svelte"
-	import { createEventDispatcher, onMount } from "svelte";
-	import { type ILocationFile } from "./location-store";
+  import { Marker } from "svelte-maplibre"
+  import MarkerSvg from "./MarkerSvg.svelte"
+  import { createEventDispatcher, onMount } from "svelte"
+  import { type ILocationFile } from "./location-store"
 
-    export let location: ILocationFile
-    export let isActive: boolean
+  export let location: ILocationFile
+  export let isActive: boolean
 
-    let marker: maplibregl.Marker | undefined
-    let markerElement: HTMLElement | undefined
+  let marker: maplibregl.Marker | undefined
+  let markerElement: HTMLElement | undefined
 
-    onMount(() => {
-        markerElement = marker?.getElement()
-        markerElement?.setAttribute("aria-label", location.name)
+  onMount(() => {
+    markerElement = marker?.getElement()
+    markerElement?.setAttribute("aria-label", location.name)
 
-        markerElement?.addEventListener("pointerdown", handleClick, { capture: true })
+    markerElement?.addEventListener("pointerdown", handleClick, {
+      capture: true
     })
+  })
 
-    const dispatch = createEventDispatcher()
+  const dispatch = createEventDispatcher()
 
-    const handleClick = (_event: PointerEvent) => dispatch("click", { location })
+  const handleClick = (_event: PointerEvent) => dispatch("click", { location })
 </script>
 
-
-<Marker lngLat={{ lng: location.lng, lat: location.lat }} draggable bind:marker={marker} >
-     <MarkerSvg color={isActive ? "red" : "black"} cursor="pointer" />
+<Marker lngLat={{ lng: location.lng, lat: location.lat }} draggable bind:marker>
+  <MarkerSvg color={isActive ? "red" : "black"} cursor="pointer" />
 </Marker>

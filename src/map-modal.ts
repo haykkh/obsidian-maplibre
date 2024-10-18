@@ -15,10 +15,7 @@ export class MapModal extends Modal {
     return "Map view"
   }
 
-  async onOpen() {
-  }
+  async onOpen() {}
 
-  async onClose() {
-  }
-
+  async onClose() {}
 }

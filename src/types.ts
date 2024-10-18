@@ -1,6 +1,6 @@
 interface LngLat {
-    lng: number
-    lat: number
+  lng: number
+  lat: number
 }
 
 export type { LngLat }

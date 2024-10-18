@@ -26,7 +26,7 @@ export class MapView extends ItemView {
 
       if (file) {
         const leaf = this.app.workspace.getMostRecentLeaf()
-      
+
         if (leaf) leaf.openFile(file)
         else this.app.workspace.getLeaf(true).openFile(file)
       }
