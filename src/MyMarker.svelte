@@ -24,5 +24,5 @@
 
 
 <Marker lngLat={{ lng: location.lng, lat: location.lat }} draggable bind:marker={marker} >
-     <MarkerSvg color={location.isActive ? "red" : ""} />
+     <MarkerSvg color={location.isActive ? "red" : "black"} cursor="pointer" />
 </Marker>
