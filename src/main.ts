@@ -15,13 +15,13 @@ export default class MapPlugin extends Plugin {
 
   unload = async () => {}
 
-  syncLocationStore = () => {
+  private syncLocationStore = () => {
     this.app.workspace.on("file-open", async () => {
       this.syncCoordinatesFromAllFiles()
     })
   }
 
-  syncCoordinatesFromAllFiles = async () => {
+  private syncCoordinatesFromAllFiles = async () => {
     const files = this.app.vault.getFiles()
 
     files.forEach(async (file) => {
@@ -41,7 +41,7 @@ export default class MapPlugin extends Plugin {
     })
   }
 
-  getCoordinateFromFile = async (file: TFile): Promise<LngLat> => {
+  private getCoordinateFromFile = async (file: TFile): Promise<LngLat> => {
     const content = await this.app.vault.cachedRead(file)
     const lngMatch = content.match(/lng:\s*([-\d.]+)/)
     const latMatch = content.match(/lat:\s*([-\d.]+)/)
