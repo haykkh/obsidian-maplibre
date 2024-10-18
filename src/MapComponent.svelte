@@ -1,7 +1,7 @@
 <script lang="ts">
     import { MapLibre, DefaultMarker, Popup } from "svelte-maplibre"
     import { lngLat, locations, type ILocationFile } from "./location-store"
-
+	import MyMarker from "./MyMarker.svelte"
 	import "maplibre-gl/dist/maplibre-gl.css";
 
 	let lngLatLocal = { lng: 0, lat: 0 }
@@ -26,12 +26,7 @@
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 >
 {#each locationsLocal as [_path, { lng, lat, name }]}
-	
-<DefaultMarker lngLat={[lng,lat]} draggable>
-	<Popup offset={[0, -10]}>
-		<div>{name}</div>
-	</Popup>
-</DefaultMarker>
+	<MyMarker lngLat={{lng, lat}} {name} />
 {/each}
 </MapLibre>
 
