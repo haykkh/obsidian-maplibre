@@ -10,15 +10,11 @@ export class MapView extends ItemView {
     super(leaf)
   }
 
-  getViewType() {
-    return VIEW_TYPE_MAP
-  }
+  getViewType = (): string => VIEW_TYPE_MAP
 
-  getDisplayText() {
-    return "Map view"
-  }
+  getDisplayText = (): string => "Map view"
 
-  async onOpen() {
+  onOpen = async () => {
     this.component = new MapComponent({ target: this.contentEl })
 
     this.component.$on("marker-click", (event) => {
@@ -33,12 +29,12 @@ export class MapView extends ItemView {
     })
   }
 
-  async onClose() {
+  onClose = async () => {
     // Nothing to clean up.
     this.component?.$destroy()
   }
 
-  static async activateView(app: App) {
+  static activateView = async (app: App) => {
     const { workspace } = app
 
     let leaf: WorkspaceLeaf | null = null

@@ -7,15 +7,11 @@ export class MapModal extends Modal {
     super(app)
   }
 
-  getViewType() {
-    return VIEW_TYPE_MAP_MODAL
-  }
+  getViewType = (): string => VIEW_TYPE_MAP_MODAL
 
-  getDisplayText() {
-    return "Map view"
-  }
+  getDisplayText = (): string => "Map view"
 
-  async onOpen() {}
+  onOpen = async () => {}
 
-  async onClose() {}
+  onClose = async () => {}
 }

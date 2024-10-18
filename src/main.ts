@@ -5,7 +5,7 @@ import { Plugin, TFile } from "obsidian"
 import type { LngLat } from "./types"
 
 export default class MapPlugin extends Plugin {
-  async onload() {
+  onload = async () => {
     this.syncLocationStore()
 
     this.registerView(VIEW_TYPE_MAP, (leaf) => new MapView(leaf))
@@ -13,15 +13,15 @@ export default class MapPlugin extends Plugin {
     this.addRibbonIcon("map", "Open map", () => MapView.activateView(this.app))
   }
 
-  async onunload() {}
+  unload = async () => {}
 
-  syncLocationStore() {
+  syncLocationStore = () => {
     this.app.workspace.on("file-open", async () => {
       this.syncCoordinatesFromAllFiles()
     })
   }
 
-  async syncCoordinatesFromAllFiles() {
+  syncCoordinatesFromAllFiles = async () => {
     const files = this.app.vault.getFiles()
 
     files.forEach(async (file) => {
@@ -41,7 +41,7 @@ export default class MapPlugin extends Plugin {
     })
   }
 
-  async getCoordinateFromFile(file: TFile): Promise<LngLat> {
+  getCoordinateFromFile = async (file: TFile): Promise<LngLat> => {
     const content = await this.app.vault.cachedRead(file)
     const lngMatch = content.match(/lng:\s*([-\d.]+)/)
     const latMatch = content.match(/lat:\s*([-\d.]+)/)
