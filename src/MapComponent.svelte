@@ -25,8 +25,8 @@
 	standardControls
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 >
-{#each locationsLocal as [_path, { lng, lat, name, isActive }]}
-	<MyMarker lngLat={{lng, lat}} {name} {isActive} />
+{#each locationsLocal as [_path, location]}
+	<MyMarker {location} />
 {/each}
 </MapLibre>
 

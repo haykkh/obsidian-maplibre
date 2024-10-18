@@ -2,20 +2,19 @@
     import { Marker } from "svelte-maplibre"
 	import MarkerSvg from "./MarkerSvg.svelte"
 	import { onMount } from "svelte";
+	import type { ILocationFile } from "./location-store";
 	
-    export let lngLat: { lng: number, lat: number }
-    export let name: string
-    export let isActive: boolean
+    export let location: ILocationFile
 
     let marker: maplibregl.Marker | undefined
 
     onMount(() => {
-        marker?.getElement().setAttribute("aria-label", name)
+        marker?.getElement().setAttribute("aria-label", location.name)
     })
 
 </script>
 
 
-<Marker lngLat={lngLat} draggable bind:marker={marker} >
-     <MarkerSvg color={isActive ? "red" : ""} />
+<Marker lngLat={{ lng: location.lng, lat: location.lat }} draggable bind:marker={marker} >
+     <MarkerSvg color={location.isActive ? "red" : ""} />
 </Marker>
