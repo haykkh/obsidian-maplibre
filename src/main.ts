@@ -27,15 +27,14 @@ export default class MapPlugin extends Plugin {
     files.forEach(async (file) => {
       const { lng, lat } = await this.getCoordinateFromFile(file)
       const isActive = file.path === this.app.workspace.getActiveFile()?.path
+
       if (lng && lat) {
         locationStore.locations.update((locations) => {
-          locations.set(file.path, {
-            name: file.name,
-            path: file.path,
-            lng,
-            lat,
-            isActive
-          })
+          const location = { name: file.name, path: file.path, lng, lat }
+          locations.set(file.path, location)
+
+          if (isActive) locationStore.activeLocation.set(location)
+
           return locations
         })
       }
