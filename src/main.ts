@@ -19,8 +19,6 @@ export default class MapPlugin extends Plugin {
 
 	syncLocationStore() {
 		this.app.workspace.on('file-open', async () => {
-			this.syncCoordinatesFromActiveFile()
-
 			this.syncCoordinatesFromAllFiles()
 		})
 	}
@@ -30,13 +28,15 @@ export default class MapPlugin extends Plugin {
 		
 		files.forEach(async (file) => {
 			const { lng, lat } = await this.getCoordinateFromFile(file)
+			const isActive = file.path === this.app.workspace.getActiveFile()?.path
 			if (lng && lat) {
 				locationStore.locations.update((locations) => {
 					locations.set(file.path, {
 						name: file.name,
 						path: file.path,
 						lng,
-						lat
+						lat,
+						isActive
 					})
 					return locations
 				})
@@ -44,22 +44,8 @@ export default class MapPlugin extends Plugin {
 		})
 	}
 
-	async syncCoordinatesFromActiveFile() {
-		const activeFile = this.app.workspace.getActiveFile()
-		if (!activeFile) return { lng: null, lat: null }
-	
-
-		const { lng, lat } = await this.getCoordinateFromFile(activeFile)
-			
-		if (lng && lat) {
-			locationStore.lng.set(lng)
-			locationStore.lat.set(lat)
-		}
-	  }
-
 	  async getCoordinateFromFile(file: TFile): Promise<LngLat> {
 		const content = await this.app.vault.cachedRead(file)
-		console.error('file', file)
 		const lngMatch = content.match(/lng:\s*([-\d.]+)/)
 		const latMatch = content.match(/lat:\s*([-\d.]+)/)
 

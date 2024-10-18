@@ -5,14 +5,11 @@ export interface ILocationFile {
     path: string
     lng: number
     lat: number
+    isActive: boolean
 }
 
 export const locations = writable<Map<string, ILocationFile>>(new Map())
 
+export const activeLocation = derived(locations, ($locations) => Array.from($locations.values()).find((location) => location.isActive))
 
-export const name = writable<string>("")
-export const lng = writable<number>()
-export const lat = writable<number>()
-export const lngLat = derived([lng, lat], ([$lng, $lat]) => ({ lng: $lng, lat: $lat }))
-
-export default { lng, lat, lngLat, name, locations }
+export default { locations }

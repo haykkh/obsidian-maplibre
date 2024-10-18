@@ -1,26 +1,26 @@
 <script lang="ts">
-    import { MapLibre, DefaultMarker, Popup } from "svelte-maplibre"
-    import { lngLat, locations, type ILocationFile } from "./location-store"
+    import { MapLibre } from "svelte-maplibre"
+    import { activeLocation, locations, type ILocationFile } from "./location-store"
 	import MyMarker from "./MyMarker.svelte"
 	import "maplibre-gl/dist/maplibre-gl.css";
 
-	let lngLatLocal = { lng: 0, lat: 0 }
 	let locationsLocal = new Map<string, ILocationFile>()
+	let activeLocationLocal: ILocationFile | null = null
 
 	locations.subscribe((newLocations) => {
 		locationsLocal = newLocations
 	})
 
-    lngLat.subscribe((newLngLat) => {
-		if (newLngLat.lng && newLngLat.lat) {
-			lngLatLocal = newLngLat;
-		}
-	})
+    activeLocation.subscribe((newActiveLocation) => {
+        activeLocationLocal = newActiveLocation ?? null
+    })
+
+	$: activeLngLat = activeLocationLocal ? { lng: activeLocationLocal.lng, lat: activeLocationLocal.lat } : {lng: 0, lat: 0}
 </script>
 
 <MapLibre
-    center={lngLatLocal}
-	zoom={7}
+    center={activeLngLat}
+	zoom={10}
 	class="map"
 	standardControls
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
