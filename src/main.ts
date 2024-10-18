@@ -5,7 +5,7 @@ import { Plugin, TFile } from "obsidian"
 import type { LngLat } from "./types"
 
 export default class MapPlugin extends Plugin {
-  onload = async () => {
+  async onload() {
     this.syncLocationStore()
 
     this.registerView(VIEW_TYPE_MAP, (leaf) => new MapView(leaf))
@@ -13,7 +13,7 @@ export default class MapPlugin extends Plugin {
     this.addRibbonIcon("map", "Open map", () => MapView.activateView(this.app))
   }
 
-  unload = async () => {}
+  async unload() {}
 
   private syncLocationStore = () => {
     this.app.workspace.on("file-open", async () => {

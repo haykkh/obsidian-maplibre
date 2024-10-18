@@ -10,11 +10,15 @@ export class MapView extends ItemView {
     super(leaf)
   }
 
-  getViewType = (): string => VIEW_TYPE_MAP
+  getViewType(): string {
+    return VIEW_TYPE_MAP
+  }
 
-  getDisplayText = (): string => "Map view"
+  getDisplayText(): string {
+    return "Map view"
+  }
 
-  onOpen = async () => {
+  async onOpen() {
     this.component = new MapComponent({ target: this.contentEl })
 
     this.component.$on("marker-click", (event) => {
@@ -29,7 +33,7 @@ export class MapView extends ItemView {
     })
   }
 
-  onClose = async () => {
+  async onClose() {
     // Nothing to clean up.
     this.component?.$destroy()
   }
