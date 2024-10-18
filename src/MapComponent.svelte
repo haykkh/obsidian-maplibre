@@ -20,6 +20,7 @@
     const handleMarkerClick = (event: CustomEvent) => dispatch("marker-click", { ...event.detail })
 
 	$: activeLngLat = activeLocationLocal ? { lng: activeLocationLocal.lng, lat: activeLocationLocal.lat } : {lng: 0, lat: 0}
+	$: isActive = (location: ILocationFile) => location.path === activeLocationLocal?.path
 </script>
 
 <MapLibre
@@ -30,7 +31,7 @@
 	style="https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json"
 >
 {#each locationsLocal as [_path, location]}
-	<MyMarker {location} on:click={handleMarkerClick} />
+	<MyMarker {location} isActive={isActive(location)} on:click={handleMarkerClick} />
 {/each}
 </MapLibre>
 
