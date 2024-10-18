@@ -1,4 +1,6 @@
 {
+  "plugins": ["./node_modules/prettier-plugin-svelte/plugin.js"],
   "inSearchDirs": ["."],
+  "pluginSearchDirs": ["."],
   "overrides": [{ "files": "*.svelte", "options": { "parser": "svelte" } }]
 }

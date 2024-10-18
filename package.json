@@ -28,6 +28,7 @@
     "obsidian": "latest",
     "prettier": "^3.3.3",
     "prettier-eslint": "^16.3.0",
+    "prettier-plugin-svelte": "^3.2.7",
     "svelte": "^4.2.19",
     "svelte-maplibre": "^0.9.14",
     "svelte-preprocess": "^6.0.3",
